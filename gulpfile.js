@@ -15,6 +15,10 @@ const port = argv.port || 9000;
 const isProd = process.env.NODE_ENV === 'production';
 const isTest = process.env.NODE_ENV === 'test';
 const isDev = !isProd && !isTest;
+const browserify = require('browserify');
+const babelify = require('babelify');
+const buffer = require('vinyl-buffer');
+const source = require('vinyl-source-stream');
 
 function styles() {
   return src('app/styles/*.css', {
@@ -30,14 +34,18 @@ function styles() {
 };
 
 function scripts() {
-  return src('app/scripts/**/*.js', {
-    sourcemaps: !isProd,
-  })
+  const b = browserify({
+      entries: 'app/scripts/main.js',
+      transform: babelify,
+      debug: true
+    })
+ 
+return b.bundle()
+    .pipe(source('bundle.js'))
     .pipe($.plumber())
-    .pipe($.babel())
-    .pipe(dest('.tmp/scripts', {
-      sourcemaps: !isProd ? '.' : false,
-    }))
+    .pipe(buffer())
+    .pipe($.if(!isProd, $.sourcemaps.init({loadMaps: true})))
+    .pipe(dest('.tmp/scripts', {sourcemaps: !isProd ? '.' : false,}))
     .pipe(server.reload({stream: true}));
 };
 

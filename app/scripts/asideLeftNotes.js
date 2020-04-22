@@ -1,8 +1,9 @@
-function add_note() {
+export const add_note = () => {
    let new_note = document.getElementById("new_note").value;
 
     if(new_note.length > 0) {
         let li = document.createElement('li');
+        let button = document.createElement('button');
         
         li.id = new_note;
         li.innerHTML = new_note + "   <span onclick='remove_note(this)'>borrar</span>";
@@ -13,14 +14,17 @@ function add_note() {
     return false;
 }
  
-function remove_note(element) {
+export const remove_note = (element) => {
    let id = element.parentNode.getAttribute("id");
 
    node = document.getElementById(id);
    node.parentNode.removeChild(node);
 }
 
-window.onload = function() {
+export const inicializador = () => {
+
+    // ASIDE LEFT 
+
     let aside = document.getElementById("aside_left_notes");
 
     let container = document.createElement("div");
@@ -43,5 +47,7 @@ window.onload = function() {
     container.appendChild(list);
 
     button.addEventListener("click", add_note);
+
+    // MAIN 
     
 }
