@@ -2,11 +2,14 @@ import * as data from '../data/candidatures.json';
 
 const candidatures_need = element => ({
     dataP: element["dataPresentacion"],
-    name: element["name"],
-    dni: element["dni"]
+    name: element["name"] + " " + element["surname"] + " " + element["surname2"],
+    dni: element["dni"],
+    telf: element["telf"],
+    email: element["email"],
+    titulacion: element["titulacionPracticas"]["name"]
 });
 
-const divTable = document.getElementById("table");
+const divTable = document.getElementById("table_div");
 
 const rowGenerator = () => {
     return document.createElement("tr");
@@ -19,7 +22,7 @@ const columnGenerator = () => {
 export const tableGenerator = () => {
 
     let table = document.createElement("table");
-
+    table.setAttribute("id", "mi_tabla");
     loadCandidatures(table);
     divTable.appendChild(table);
 }
