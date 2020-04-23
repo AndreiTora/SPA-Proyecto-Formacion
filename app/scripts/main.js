@@ -1,17 +1,9 @@
 import {inicializador} from './asideLeftNotes.js'
+import {tableGenerator} from './dataAccess.js'
 
 window.onload = () => {
     inicializador();
+    tableGenerator();
 }
 
 console.log('\'Allo \'Allo!');
-
-const prueba = () => {
-    fetch('data/offers.json')
-    .then(respone => respone.json())
-    .then(data => {
-        console.log(data);
-    })
-}
-
-prueba();
