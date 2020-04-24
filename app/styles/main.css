@@ -55,29 +55,24 @@ nav, footer {
 span {
   background: #61A8DC;
   color: rgb(255, 255, 255);
-  font-size: 15px;
-  width: 16%; 
-  height: 80%;
+  font-size: 12px;
+  width: 10%; 
   float: right;
-  margin: 1px 5px 5px 3px; 
   text-align: center;
 }
 
 ul {
-  margin-bottom: 10px;
   list-style: none;
 }
 
 li  {
-width: 300px; 
-height: 30px;  
-margin: 0 0 7px 0; 
+width: 200px;   
 display: block;
-margin: 0 0 7px 0;
+margin: 1px 1px 7px 1px;
 background: #F7F5F2;
-font-size: 18px;
+font-size: 13px;
 color: #333;
-padding: 5px 0 0 20px;
+padding: 5px 5px 5px 5px;
 text-decoration: none;
 border-left: 5px solid #61A8DC;
 }

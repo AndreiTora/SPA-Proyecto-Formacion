@@ -1,5 +1,5 @@
 import {inicializador} from './asideLeftNotes.js'
-import {tableGenerator} from './dataAccess.js'
+import {tableGenerator} from './dataAccessCandidatures.js'
 
 window.onload = () => {
     inicializador();

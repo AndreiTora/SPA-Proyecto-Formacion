@@ -3,10 +3,9 @@ export const add_note = () => {
 
     if(new_note.length > 0) {
         let li = document.createElement('li');
-        let button = document.createElement('button');
         
         li.id = new_note;
-        li.innerHTML = new_note + "   <span onclick='remove_note(this)'>borrar</span>";
+        li.innerHTML = new_note;
 
         document.getElementById("notes_list").appendChild(li);
     }
