@@ -87,8 +87,20 @@ table {
 }
 
 th, td {
-  padding: 8px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr {
+  background-color: rgb(220, 233, 238);
+}
+
+tr:nth-child(even){
+  background-color: rgb(255, 255, 255);
+}
+
+th {
+  background-color: rgb(118, 177, 219);
+  color: white;
 }
 

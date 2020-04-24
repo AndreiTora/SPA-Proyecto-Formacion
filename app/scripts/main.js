@@ -1,9 +1,12 @@
 import {inicializador} from './asideLeftNotes.js'
-import {tableGenerator} from './dataAccessCandidatures.js'
+import {tableCandidaturesGenerator} from './dataAccessCandidatures.js'
+import {tableOffersGenerator} from './dataAccessOffers.js'
+
 
 window.onload = () => {
     inicializador();
-    tableGenerator();
+    tableCandidaturesGenerator();
+    tableOffersGenerator();
 }
 
 console.log('\'Allo \'Allo!');

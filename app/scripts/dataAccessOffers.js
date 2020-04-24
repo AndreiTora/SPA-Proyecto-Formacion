@@ -1,17 +1,18 @@
-import * as data from '../data/candidatures.json';
+import * as data from '../data/offers.json';
 
-const divTable = document.getElementById("table_div");
+const divTable = document.getElementById("table_div_2");
 
-const header = ["Data", "Apellidos", "DNI", "Telefono", "Email", "Titulación"];
+const header = ["Data", "Company", "Request Titulation", "Name", "Email"];
 
-const candidatures_need = element => ({
-    dataP: element["dataPresentacion"],
-    name: element["surname"] + " " + element["surname2"],
-    dni: element["dni"],
-    telf: element["telf"],
+const offers_need = element => ({
+    data: element["dataPresentacion"],
+    company: element["companyData"]["company"],
+    titulation: element["requestPrimaryTitulation"]["name"],
+    numberOffers: element["numberPositionsOffered"],
     email: element["email"],
-    titulacion: element["titulacionPracticas"]["name"]
 });
+
+console.log(offers_need);
 
 const headRowGenerator = () => {
     return document.createElement("tr");
@@ -29,9 +30,10 @@ const columnGenerator = () => {
     return document.createElement("td");
 }
 
-export const tableCandidaturesGenerator = () => {
+
+export const tableOffersGenerator = () => {
     let table = document.createElement("table");
-    table.setAttribute("id", "mi_tabla");
+    table.setAttribute("id", "mi_tabla2");
 
     const tr = headRowGenerator();
     table.appendChild(tr);
@@ -43,15 +45,15 @@ export const tableCandidaturesGenerator = () => {
         tr.appendChild(th);
     }
 
-    loadCandidatures(table);
+    loadOffers(table);
     divTable.appendChild(table);
 }
 
-const loadCandidatures = (table) => {
+const loadOffers = (table) => {
 
-    const candidatures = data.candidatures.map(candidatures_need); 
+    const offers = data.internshipOffer.map(offers_need); 
 
-    candidatures.forEach(element => {
+    offers.forEach(element => {
         let row = rowGenerator();
 
         for (const key in element) {
