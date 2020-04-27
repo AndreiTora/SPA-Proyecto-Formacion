@@ -19,10 +19,16 @@ header {
   height: 10vh;
 }
 
-nav, footer {
+nav {
   background: #aaaaaa;
-  height:5vh;
+  height:6vh;
 }
+
+footer {
+  background: #aaaaaa;
+  height:4vh;
+}
+
 
 .column {
   float: left;
@@ -61,11 +67,11 @@ span {
   text-align: center;
 }
 
-ul {
+ul#aside_left_notes {
   list-style: none;
 }
 
-li  {
+#aside_left_notes li  {
 width: 200px;   
 display: block;
 margin: 1px 1px 7px 1px;
@@ -77,7 +83,7 @@ text-decoration: none;
 border-left: 5px solid #61A8DC;
 }
 
-li a:hover { 
+#aside_left_notes li a:hover { 
   background-color: #EFEFEF; 
 }
 
@@ -103,4 +109,13 @@ th {
   background-color: rgb(118, 177, 219);
   color: white;
 }
+
+#my_nav ul {
+	list-style: none;
+	}
+#my_nav ul li {
+		display: inline;
+	}
+
+
 

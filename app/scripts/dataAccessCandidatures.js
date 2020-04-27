@@ -1,38 +1,41 @@
 import * as data from '../data/candidatures.json';
 
-const divTable = document.getElementById("table_div");
+const table = document.getElementById('my_table');
 
-const header = ["Data", "Apellidos", "DNI", "Telefono", "Email", "Titulación"];
+const header = ['Data', 'Apellidos', 'DNI', 'Telefono', 'Email', 'Titulación'];
 
 const candidatures_need = element => ({
-    dataP: element["dataPresentacion"],
-    name: element["surname"] + " " + element["surname2"],
-    dni: element["dni"],
-    telf: element["telf"],
-    email: element["email"],
-    titulacion: element["titulacionPracticas"]["name"]
+    dataP: element['dataPresentacion'],
+    name: element['surname'] + ' ' + element['surname2'],
+    dni: element['dni'],
+    telf: element['telf'],
+    email: element['email'],
+    titulacion: element['titulacionPracticas']['name']
 });
 
 const headRowGenerator = () => {
-    return document.createElement("tr");
+    return document.createElement('tr');
 }
 
 const headColumnGenerator = () => {
-    return document.createElement("th");
+    return document.createElement('th');
 }
 
 const rowGenerator = () => {
-    return document.createElement("tr");
+    return document.createElement('tr');
 }
 
 const columnGenerator = () => {
-    return document.createElement("td");
+    return document.createElement('td');
 }
 
-export const tableCandidaturesGenerator = () => {
-    let table = document.createElement("table");
-    table.setAttribute("id", "mi_tabla");
+const cleanTable = (table) => {
+    table.textContent = '';
+  }
 
+export const tableCandidaturesGenerator = () => {
+    cleanTable(table);
+    
     const tr = headRowGenerator();
     table.appendChild(tr);
 
