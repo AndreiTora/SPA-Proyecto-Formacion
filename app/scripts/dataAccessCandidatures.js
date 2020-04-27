@@ -5,7 +5,11 @@ const table = document.getElementById('my_table');
 const header = ['Data', 'Apellidos', 'DNI', 'Telefono', 'Email', 'Titulación'];
 
 const candidatures_need = element => ({
-    dataP: element['dataPresentacion'],
+    dataP: new Date(
+        parseInt(element['dataPresentacion'].slice(0, 4)),
+        parseInt(element['dataPresentacion'].slice(4, 6)),
+        parseInt(element['dataPresentacion'].slice(6, 8))
+        ).toLocaleDateString(),
     name: element['surname'] + ' ' + element['surname2'],
     dni: element['dni'],
     telf: element['telf'],
@@ -30,7 +34,7 @@ const columnGenerator = () => {
 }
 
 const cleanTable = (table) => {
-    table.textContent = '';
+    table.innerText = '';
   }
 
 export const tableCandidaturesGenerator = () => {
@@ -67,3 +71,4 @@ const loadCandidatures = (table) => {
         table.appendChild(row);
     })
 };
+

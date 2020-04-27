@@ -5,14 +5,16 @@ const table = document.getElementById('my_table');
 const header = ['Data', 'Company', 'Request Titulation', 'Numero Plazas', 'Email'];
 
 const offers_need = element => ({
-    data: element['dataPresentacion'],
+    data: new Date(
+        parseInt(element['dataPresentacion'].slice(0, 4)),
+        parseInt(element['dataPresentacion'].slice(4, 6)),
+        parseInt(element['dataPresentacion'].slice(6, 8))
+        ).toLocaleDateString(),
     company: element['companyData']['company'],
     titulation: element['requestPrimaryTitulation']['name'],
     numberOffers: element['numberPositionsOffered'],
     email: element['companyData']['email'],
 });
-
-console.log(offers_need);
 
 const headRowGenerator = () => {
     return document.createElement('tr');
@@ -32,7 +34,7 @@ const columnGenerator = () => {
 
 
 const cleanTable = (table) => {
-    table.textContent = '';
+    table.innerText = '';
   }
 
 export const tableOffersGenerator = () => {

@@ -15,7 +15,6 @@ const newLu = (ul, evento, nombre) => {
     let li = document.createElement('li');
     let button = document.createElement('button');
 
-
     button.innerHTML = nombre;
     li.addEventListener('click', evento);
     
