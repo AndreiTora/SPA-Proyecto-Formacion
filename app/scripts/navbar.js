@@ -8,8 +8,6 @@ export const createNavbar = () => {
     newLu(ul, tableCandidaturesGenerator, 'CANDIDATURAS');
     newLu(ul, tableOffersGenerator, 'OFERTAS');
 
-    //GENERAR LOS SIGUIENTES BOTONES
-
     navBar.appendChild(ul);    
 }
 
