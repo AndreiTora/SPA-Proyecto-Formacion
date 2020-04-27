@@ -51,7 +51,7 @@ export const tableOffersGenerator = () => {
     }
 
     loadOffers(table);
-    divTable.appendChild(table);
+
 }
 
 const loadOffers = (table) => {
