@@ -3,7 +3,6 @@ import {sortTable} from './sorttable.js'
 
 const table = document.getElementById('my_table');
 
-
 const header = ['data', 'name', 'dni', 'telf', 'email', 'titulacion'];
 
 const candidatures_need = element => ({
@@ -61,34 +60,27 @@ export const tableCandidaturesGenerator = () => {
     loadCandidatures(table);
 }
 
-const loadCandidatures = (table) => {
+const loadCandidatures = () => {
 
     const candidatures = data.candidatures.map(candidatures_need); 
 
-    candidatures.forEach(element => {
-        let row = rowGenerator();
-
-        for (const key in element) {
-            let column = columnGenerator();
-            
-            column.innerText = element[key];
-            row.appendChild(column);
-        }
-        
-        table.appendChild(row);
-
-    })
+    miForEach(candidatures);
     
 };
 
 const loadCandidaturesSorted = (property) => {
     cleanTable(table);
-    
     headerGenerator(header);
  
     const candidaturesSorted = sortTable(data.candidatures.map(candidatures_need), property) 
 
-    candidaturesSorted.forEach(element => {
+    miForEach(candidaturesSorted);
+
+};
+
+const miForEach = (mapeo) => {
+
+    mapeo.forEach(element => {
         let row = rowGenerator();
 
         for (const key in element) {
@@ -99,8 +91,5 @@ const loadCandidaturesSorted = (property) => {
         }
         
         table.appendChild(row);
-    })   
-};
-
-console.log(data.candidatures.map(candidatures_need))
-console.log(sortTable(data.candidatures.map(candidatures_need, ), 'name'));
+    }) 
+}
