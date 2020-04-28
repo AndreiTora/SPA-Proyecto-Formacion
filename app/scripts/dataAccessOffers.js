@@ -1,8 +1,9 @@
 import * as data from '../data/offers.json';
+import {sortTable} from './sorttable.js'
 
 const table = document.getElementById('my_table');
 
-const header = ['Data', 'Company', 'Request Titulation', 'Numero Plazas', 'Email'];
+const header = ['data', 'company', 'titulation', 'number', 'email'];
 
 const offers_need = element => ({
     data: new Date(
@@ -12,7 +13,7 @@ const offers_need = element => ({
         ).toLocaleDateString(),
     company: element['companyData']['company'],
     titulation: element['requestPrimaryTitulation']['name'],
-    numberOffers: element['numberPositionsOffered'],
+    number: element['numberPositionsOffered'].toString(),
     email: element['companyData']['email'],
 });
 
@@ -32,26 +33,30 @@ const columnGenerator = () => {
     return document.createElement('td');
 }
 
-
 const cleanTable = (table) => {
     table.innerText = '';
   }
 
-export const tableOffersGenerator = () => {
-    cleanTable(table);
+  const headerGenerator = (header) => {
 
     const tr = headRowGenerator();
     table.appendChild(tr);
 
     for (const value in header) {
         let th = headColumnGenerator();
-
+        
         th.innerText = header[value];
+        th.addEventListener('click', (event) => loadCandidaturesSorted(event.target.innerText))
         tr.appendChild(th);
     }
+}
+
+export const tableOffersGenerator = () => {
+    cleanTable(table);
+
+    headerGenerator(header);
 
     loadOffers(table);
-
 }
 
 const loadOffers = (table) => {
@@ -70,4 +75,25 @@ const loadOffers = (table) => {
         
         table.appendChild(row);
     })
+};
+
+const loadCandidaturesSorted = (property) => {
+    cleanTable(table);
+    
+    headerGenerator(header)
+ 
+    const candidaturesSorted = sortTable(data.internshipOffer.map(offers_need), property) 
+
+    candidaturesSorted.forEach(element => {
+        let row = rowGenerator();
+
+        for (const key in element) {
+            let column = columnGenerator();
+            
+            column.innerText = element[key];
+            row.appendChild(column);
+        }
+        
+        table.appendChild(row);
+    })   
 };

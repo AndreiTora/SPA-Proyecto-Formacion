@@ -1,4 +1,5 @@
 import * as data from '../data/candidatures.json';
+import {sortTable} from './sorttable.js'
 
 const table = document.getElementById('my_table');
 
@@ -38,9 +39,8 @@ const cleanTable = (table) => {
     table.innerText = '';
   }
 
-export const tableCandidaturesGenerator = () => {
-    cleanTable(table);
-    
+const headerGenerator = (header) => {
+
     const tr = headRowGenerator();
     table.appendChild(tr);
 
@@ -48,9 +48,15 @@ export const tableCandidaturesGenerator = () => {
         let th = headColumnGenerator();
         
         th.innerText = header[value];
-        th.addEventListener('click', (event) => loadCandidaturesSorted(event.target.innerText))
+        th.addEventListener('click', (event) => loadCandidaturesSorted(event.target.innerText));
         tr.appendChild(th);
     }
+}
+
+export const tableCandidaturesGenerator = () => {
+    cleanTable(table);
+
+    headerGenerator(header);
 
     loadCandidatures(table);
 }
@@ -78,17 +84,9 @@ const loadCandidatures = (table) => {
 const loadCandidaturesSorted = (property) => {
     cleanTable(table);
     
-    const tr = headRowGenerator();
-    table.appendChild(tr);
-
-    for (const value in header) {
-        let th = headColumnGenerator();
-        
-        th.innerText = header[value];
-        tr.appendChild(th);
-    }
+    headerGenerator(header);
  
-    const candidaturesSorted = sortTable(data.candidatures.map(candidatures_need), property)
+    const candidaturesSorted = sortTable(data.candidatures.map(candidatures_need), property) 
 
     candidaturesSorted.forEach(element => {
         let row = rowGenerator();
@@ -101,24 +99,8 @@ const loadCandidaturesSorted = (property) => {
         }
         
         table.appendChild(row);
-
-    })
-    
+    })   
 };
-
-const sortAlpha = (array, property) => {
-    return array.sort(function (a,b) {
-        if(a[property].toLowerCase() < b[property].toLowerCase()) return -1;
-        if(a[property].toLowerCase() > b[property].toLowerCase()) return 1;
-        return 0;
-    })
-}
-
-const sortTable = (document, property) => {  
-    return sortAlpha(document, property);
-}
-
-
 
 console.log(data.candidatures.map(candidatures_need))
 console.log(sortTable(data.candidatures.map(candidatures_need, ), 'name'));
