@@ -9,3 +9,4 @@ export const sortAlpha = (array, property) => {
 export const sortTable = (document, property) => {  
     return sortAlpha(document, property);
 }
+

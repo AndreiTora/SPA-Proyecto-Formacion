@@ -5,6 +5,8 @@ const table = document.getElementById('my_table');
 
 const header = ['data', 'name', 'dni', 'telf', 'email', 'titulacion'];
 
+const search = {};
+
 const candidatures_need = element => ({
     data: new Date(
         parseInt(element['dataPresentacion'].slice(0, 4)),
@@ -51,6 +53,11 @@ export const tableCandidaturesGenerator = () => {
 
     headerGenerator(header);
 
+    let body_table = tbodyGenerator();
+    body_table.setAttribute('id','table_body')
+
+    table.appendChild(body_table);
+
     loadCandidatures();
 
 }
@@ -77,9 +84,6 @@ const headerGenerator = (header) => {
     thead.appendChild(tr);
     table.appendChild(thead);  
 
-    
-
-
     for (const value in header) {
         let th = headColumnGenerator();
         
@@ -100,6 +104,11 @@ const loadCandidatures = () => {
 const loadCandidaturesSorted = (property) => {
     cleanTable(table);
     headerGenerator(header);
+
+    let body_table = tbodyGenerator();
+    body_table.setAttribute('id','table_body')
+
+    table.appendChild(body_table);
  
     const candidaturesSorted = sortTable(data.candidatures.map(candidatures_need), property) 
 
@@ -107,10 +116,16 @@ const loadCandidaturesSorted = (property) => {
 
 };
 
+const loadCandidaturesFiltered = (resultado) => {
+    cleanTbody();
+
+    miForEach(resultado);
+
+};
+
 const miForEach = (mapeo) => {
 
-    let body_table = tbodyGenerator();
-    body_table.setAttribute('id','table_body')
+    const body_table = document.getElementById('table_body');
 
     mapeo.forEach(element => {
 
@@ -135,6 +150,10 @@ const inputHeadGenerator = () => {
     header.forEach(element => {
       let elementColumn =  headColumnGenerator();
       let elementInput = generateInput();
+
+      elementInput.setAttribute('name', `${element}`);
+      elementInput.setAttribute('id', `${element}`);
+      elementInput.onkeyup = (event) => filterColumn(event);
   
       elementColumn.appendChild(elementInput);
       row.appendChild(elementColumn)
@@ -142,3 +161,26 @@ const inputHeadGenerator = () => {
   
     return row;
   }
+
+const filterColumn = (event) => {
+
+    const key = event.target.name;
+    const value = document.getElementById(key).value;
+    
+    search[key] = value;
+
+    let mapeo = data.candidatures.map(candidatures_need);
+
+    let resultado = mapeo.filter(candidate => {
+        let isValid = true;
+        Object.keys(search).forEach(key => {
+          
+           if (!new RegExp(`${search[key]}`, "i").test(candidate[key])) {
+               isValid = false;
+          }
+        });
+        return isValid;
+    });
+
+    loadCandidaturesFiltered(resultado);
+}
