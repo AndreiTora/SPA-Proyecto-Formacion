@@ -42,17 +42,43 @@ const tbodyGenerator = () => {
     return document.createElement('tbody');
 }
 
-const cleanTable = (table) => {
+const generateInput = () => {
+    return document.createElement('input');
+} 
+
+export const tableCandidaturesGenerator = () => {
+    cleanTable(table); 
+
+    headerGenerator(header);
+
+    loadCandidatures();
+
+}
+
+const cleanTable = () => {
     table.innerText = '';
   }
 
+const cleanTbody = () => {
+    let tbody = document.getElementById('table_body');
+    tbody.innerText = '';
+}
+
+  
+
 const headerGenerator = (header) => {
+
     let thead = theadGenerator();
 
     const tr = headRowGenerator();
 
+    thead.appendChild(inputHeadGenerator());
+
     thead.appendChild(tr);
-    table.appendChild(thead);
+    table.appendChild(thead);  
+
+    
+
 
     for (const value in header) {
         let th = headColumnGenerator();
@@ -61,14 +87,6 @@ const headerGenerator = (header) => {
         th.addEventListener('click', (event) => loadCandidaturesSorted(event.target.innerText));
         tr.appendChild(th);
     }
-}
-
-export const tableCandidaturesGenerator = () => {
-    cleanTable(table);
-
-    headerGenerator(header);
-
-    loadCandidatures();
 }
 
 const loadCandidatures = () => {
@@ -92,6 +110,7 @@ const loadCandidaturesSorted = (property) => {
 const miForEach = (mapeo) => {
 
     let body_table = tbodyGenerator();
+    body_table.setAttribute('id','table_body')
 
     mapeo.forEach(element => {
 
@@ -109,3 +128,17 @@ const miForEach = (mapeo) => {
         table.appendChild(body_table);
     }) 
 }
+
+const inputHeadGenerator = () => {
+    let row = rowGenerator();
+  
+    header.forEach(element => {
+      let elementColumn =  headColumnGenerator();
+      let elementInput = generateInput();
+  
+      elementColumn.appendChild(elementInput);
+      row.appendChild(elementColumn)
+    })
+  
+    return row;
+  }

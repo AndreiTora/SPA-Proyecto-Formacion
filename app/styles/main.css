@@ -117,5 +117,8 @@ th {
 		display: inline;
 	}
 
+table input {
+  width: 100%;
+}
 
   
