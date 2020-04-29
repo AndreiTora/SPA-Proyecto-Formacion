@@ -17,6 +17,11 @@ const offers_need = element => ({
     email: element['companyData']['email'],
 });
 
+
+const theadGenerator = () => {
+    return document.createElement('thead');
+}
+
 const headRowGenerator = () => {
     return document.createElement('tr');
 }
@@ -33,14 +38,21 @@ const columnGenerator = () => {
     return document.createElement('td');
 }
 
+const tbodyGenerator = () => {
+    return document.createElement('tbody');
+}
+
 const cleanTable = (table) => {
     table.innerText = '';
   }
 
   const headerGenerator = (header) => {
-
+    let thead = theadGenerator();
+    
     const tr = headRowGenerator();
-    table.appendChild(tr);
+
+    thead.appendChild(tr);
+    table.appendChild(thead);
 
     for (const value in header) {
         let th = headColumnGenerator();
@@ -56,25 +68,14 @@ export const tableOffersGenerator = () => {
 
     headerGenerator(header);
 
-    loadOffers(table);
+    loadOffers();
 }
 
-const loadOffers = (table) => {
+const loadOffers = () => {
 
     const offers = data.internshipOffer.map(offers_need); 
 
-    offers.forEach(element => {
-        let row = rowGenerator();
-
-        for (const key in element) {
-            let column = columnGenerator();
-            
-            column.innerText = element[key];
-            row.appendChild(column);
-        }
-        
-        table.appendChild(row);
-    })
+    miForEach(offers);
 };
 
 const loadCandidaturesSorted = (property) => {
@@ -84,8 +85,16 @@ const loadCandidaturesSorted = (property) => {
  
     const candidaturesSorted = sortTable(data.internshipOffer.map(offers_need), property) 
 
-    candidaturesSorted.forEach(element => {
-        let row = rowGenerator();
+    miForEach(candidaturesSorted);
+};
+
+const miForEach = (mapeo) => {
+    let body_table = tbodyGenerator();
+
+    mapeo.forEach(element => {
+        let row = rowGenerator(); 
+
+        body_table.appendChild(row);
 
         for (const key in element) {
             let column = columnGenerator();
@@ -94,6 +103,8 @@ const loadCandidaturesSorted = (property) => {
             row.appendChild(column);
         }
         
-        table.appendChild(row);
-    })   
-};
+       table.appendChild(body_table); 
+    })
+}
+
+

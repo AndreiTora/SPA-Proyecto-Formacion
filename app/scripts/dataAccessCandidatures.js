@@ -18,6 +18,10 @@ const candidatures_need = element => ({
     titulacion: element['titulacionPracticas']['name']
 });
 
+const theadGenerator = () => {
+    return document.createElement('thead');
+}
+
 const headRowGenerator = () => {
     return document.createElement('tr');
 }
@@ -34,14 +38,21 @@ const columnGenerator = () => {
     return document.createElement('td');
 }
 
+const tbodyGenerator = () => {
+    return document.createElement('tbody');
+}
+
 const cleanTable = (table) => {
     table.innerText = '';
   }
 
 const headerGenerator = (header) => {
+    let thead = theadGenerator();
 
     const tr = headRowGenerator();
-    table.appendChild(tr);
+
+    thead.appendChild(tr);
+    table.appendChild(thead);
 
     for (const value in header) {
         let th = headColumnGenerator();
@@ -57,7 +68,7 @@ export const tableCandidaturesGenerator = () => {
 
     headerGenerator(header);
 
-    loadCandidatures(table);
+    loadCandidatures();
 }
 
 const loadCandidatures = () => {
@@ -80,8 +91,13 @@ const loadCandidaturesSorted = (property) => {
 
 const miForEach = (mapeo) => {
 
+    let body_table = tbodyGenerator();
+
     mapeo.forEach(element => {
+
         let row = rowGenerator();
+
+        body_table.appendChild(row);
 
         for (const key in element) {
             let column = columnGenerator();
@@ -89,7 +105,7 @@ const miForEach = (mapeo) => {
             column.innerText = element[key];
             row.appendChild(column);
         }
-        
-        table.appendChild(row);
+
+        table.appendChild(body_table);
     }) 
 }
